@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.roomdb.databinding.FragmentHomeBinding
 
 
@@ -19,15 +20,12 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
 
 
-        val names = listOf(
-            "John", "Alice", "Michael", "Emma", "David", "Sophia", "Daniel", "Olivia",
-            "Matthew", "Isabella", "James", "Ava", "Benjamin", "Mia", "William", "Charlotte",
-            "Alexander", "Amelia", "Henry", "Harper", "Joseph", "Evelyn", "Samuel", "Abigail",
-            "Christopher", "Emily", "Andrew", "Madison", "Joshua", "Lily", "Ethan", "Ella",
-            "Anthony", "Grace", "Thomas", "Chloe", "Nathan", "Zoey", "Ryan", "Hannah",
-            "Elijah", "Victoria", "Mason", "Aria", "Jacob", "Layla", "Logan", "Sofia",
-            "Jackson", "Scarlett"
-        )
+        binding.addBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.action_homeFragment_to_addFragment)
+
+        }
+
 
 
         return binding.root

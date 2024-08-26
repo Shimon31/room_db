@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddFragment">
+
+
+    <EditText
+        android:id="@+id/eriteET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write Something"
+        android:textSize="18sp"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/datePickerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2-08-24"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"/>
+    <Button
+        android:id="@+id/timePickerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="10:00"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/submitBTN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_margin="10dp"/>
+
+
+</LinearLayout>
