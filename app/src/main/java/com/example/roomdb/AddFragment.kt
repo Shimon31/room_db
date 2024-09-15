@@ -8,18 +8,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.example.roomdb.databinding.FragmentAddBinding
 
 class AddFragment : Fragment() {
 
     lateinit var binding: FragmentAddBinding
-//    private var selectedDate: String? = null
+
+    private var showTime: String? = null
+    private var selectedDate: String? = null
+
+   lateinit var database: NoteDataBase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddBinding.inflate(inflater, container, false)
+
+
+        database =
+            Room.databaseBuilder(requireActivity(),
+                NoteDataBase::class.java, "Note-DB").allowMainThreadQueries().build()
 
         binding.datePickerBtn.setOnClickListener {
 
@@ -30,6 +41,25 @@ class AddFragment : Fragment() {
 
             pickATime()
         }
+
+        binding.submitBTN.setOnClickListener {
+
+            var titleStr = binding.titleET.text.toString()
+            var timeStr = showTime ?: "00:00"
+            var dateStr = selectedDate ?: "12-12-24"
+
+
+            val note = Note(title = titleStr, time = timeStr, date = dateStr)
+
+            database.getNoteDao().insertData(note)
+
+
+            findNavController().navigate(R.id.action_addFragment_to_homeFragment)
+
+
+        }
+
+
 
 
         return binding.root
@@ -43,18 +73,17 @@ class AddFragment : Fragment() {
 
         val showTime = TimePickerDialog(
 
-            requireActivity(),TimePickerDialog.OnTimeSetListener{
-                _,hour,minute ->
+            requireActivity(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
 
-                val showTime = "$hour: $minute"
+                showTime = "$hourOfDay: $minute"
+                binding.timePickerBtn.text = showTime
 
-            },hour,minute,false
+            }, hour, minute, false
 
 
         )
         showTime.show()
     }
-
 
 
     private fun pickaDate() {
@@ -66,12 +95,12 @@ class AddFragment : Fragment() {
 
         val showDate = DatePickerDialog(
             requireActivity(),
-            {  _, year, month, dayOfMonth ->
+            { _, year, month, dayOfMonth ->
 
-             val   selectedDate = "$dayOfMonth/$month/$year"
+                selectedDate = "$dayOfMonth/$month/$year"
                 binding.datePickerBtn.text = selectedDate
             },
-            year,month,date
+            year, month, date
 
         )
         showDate.show()

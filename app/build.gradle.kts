@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
+
 }
 
 android {
@@ -47,6 +49,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.room.common)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,6 +69,14 @@ dependencies {
 
         // Testing Navigation
         androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+        var room_version = "2.5.1"
+
+        implementation("androidx.room:room-runtime:$room_version")
+        annotationProcessor ("androidx.room:room-compiler:$room_version")
+
+        // To use Kotlin annotation processing tool (kapt)
+        kapt ("androidx.room:room-compiler:$room_version")
 
     }
 }
